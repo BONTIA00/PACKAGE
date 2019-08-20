@@ -6429,4 +6429,7 @@ BEGIN
             EMETTRE_RETRAITE(ADD_MONTHS(P_PERIODE,(I-2)) ,NULL,NULL,NULL, P_AG1 ,P_AG2
                                     ,P_AG3 ,P_AG4 ,P_AG5 , P_AG6 ,P_AG7 ,P_AG8 ,P_AG9 ,P_AG11 ,P_AG12 
                                     ,P_AG13 ,P_AG14 ,P_AG15 ,P_AG16 ,P_AG17 ,P_AG18 ,P_AG19 ,P_AG20 
+
+
+ je suis là , pour ma modiff                                   
                                 
