@@ -1,12 +1,12 @@
 create or replace PACKAGE BODY       CONCEP1.PACK_AUTOMATISATION_EMISSION_2 AS 
 /******************************************************************************
    NAME:       PACK_AUTOMATISATION_EMISSION
-   OBJECT : Package de traitement batch des Èmissions des prestations de retraites et de rentes.
+   OBJECT : Package de traitement batch des √©missions des prestations de retraites et de rentes.
    REVISIONS:
    Ver        Date        Author            Description
    ---------  ----------  ---------------   ------------------------------------
-   1.0        04/09/2014  GBAHI FABRICE     CrÈation du package
-   1.1        27/04/2015  GBAHI FABRICE     Prise en compte de l'agence au niveau du ramassage des Èmissions des cartes pensions.   
+   1.0        04/09/2014  GBAHI FABRICE     Cr√©ation du package
+   1.1        27/04/2015  GBAHI FABRICE     Prise en compte de l'agence au niveau du ramassage des √©missions des cartes pensions.   
 ******************************************************************************/
 
 /*CETTE FONCTION IDENTIFIE LE NOMBRE D'EMISSION VALIDE POUR UN ASSURE ET SON SOUS REGIME
@@ -2303,8 +2303,8 @@ AND NOT EXISTS (
              V_MESSAGE_ERREUR_4                                             VARCHAR2(200);
               
        --***********MONTANT RAPPEL BONIFICATION **********************---
-       V_MONTANT_RAPPEL_BONIFICATION NUMBER:=0; -- PAR GBAœ LE 19 12 2011
-       V_LAST_EMIS_BONIFIEE DATE;-- PAR GBAœ LE 19 12 2011
+       V_MONTANT_RAPPEL_BONIFICATION NUMBER:=0; -- PAR GBA√è LE 19 12 2011
+       V_LAST_EMIS_BONIFIEE DATE;-- PAR GBA√è LE 19 12 2011
 BEGIN    
     
     SELECT VALEUR_PARAMETRE_DATE INTO V_DATE_BONIFICATION
@@ -2500,7 +2500,7 @@ LOOP
     V_INDICE_IMPOT_IS                :=0;
     V_INDICE_IMPOT_CN                :=0;
     V_INDICE_IMPOT_IGR            :=0;
-    V_MONTANT_RAPPEL_BONIFICATION :=0; --AJOUTER LE 19 12 2011 PAR GBAœ
+    V_MONTANT_RAPPEL_BONIFICATION :=0; --AJOUTER LE 19 12 2011 PAR GBA√è
    
         
     FETCH RETRAITE_A_EMETTRE INTO R_RET;  
@@ -2510,7 +2510,7 @@ LOOP
     --
     EMIS_IND:=EMIS_IND-1;                
       
-      ---*******RECUPERATION DU MONTANT DU RAPPEL DE LA BONIFICATION 19 12 2011 PAR GBAœ
+      ---*******RECUPERATION DU MONTANT DU RAPPEL DE LA BONIFICATION 19 12 2011 PAR GBA√è
             V_MONTANT_RAPPEL_BONIFICATION:=F_RAP_BONIFICATION(P_PERIODE,R_RET.TRVNUM,R_RET.BENEFICIAIRE,R_RET.AYATYPE
                   ,P_AG1,P_AG2,P_AG3,P_AG4,P_AG5,P_AG6,P_AG7,P_AG8
                   ,P_AG9,P_AG11,P_AG12,P_AG13,P_AG14,P_AG15,P_AG16
@@ -2527,7 +2527,7 @@ LOOP
       
         /*
         Set_Item_Property('cfg$bar.bt_annferm',LABEL,:global.mbt1);
-        :cfg$bar.encours_texte:='ASSURE N∞'||R_RET.BENEFICIAIRE;
+        :cfg$bar.encours_texte:='ASSURE N¬∞'||R_RET.BENEFICIAIRE;
         go_item('CFG$BAR.BT_BAR');       
         SYNCHRONIZE;
         */
@@ -2924,7 +2924,7 @@ LOOP
                     COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).BENEFICIAIRE            :=R_RET.BENEFICIAIRE;
                     COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).TYPE_BENEFICIAIRE       :=R_RET.AYATYPE;
                     COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).PERIODE_EMISSION        :=P_PERIODE;
-                    COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).REMARQUE                :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N∞183/2006/DG/CNPS 09-05-2006';
+                    COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).REMARQUE                :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N¬∞183/2006/DG/CNPS 09-05-2006';
                     COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).STATUT                  :=NULL;
                     COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).PRESTATION              :='RETRAITE';
                     COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).SUPPLEMENT_1            :=NULL;
@@ -2948,7 +2948,7 @@ LOOP
                                 IF R_RET.AYATYPE!='T' THEN 
                                         
                                     COLLECT_RET_AYANT_MOTIF(IND_COLLECT_RET_AYANT_MOTIF).CODEMOTIF             :=24;
-                                    COLLECT_RET_AYANT_MOTIF(IND_COLLECT_RET_AYANT_MOTIF).REMARQUE              :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N∞183/2006/DG/CNPS 09-05-2006';
+                                    COLLECT_RET_AYANT_MOTIF(IND_COLLECT_RET_AYANT_MOTIF).REMARQUE              :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N¬∞183/2006/DG/CNPS 09-05-2006';
                                     COLLECT_RET_AYANT_MOTIF(IND_COLLECT_RET_AYANT_MOTIF).DATEMOTIF             :=SYSDATE;
                                     COLLECT_RET_AYANT_MOTIF(IND_COLLECT_RET_AYANT_MOTIF).TRVNUM                :=R_RET.TRVNUM;
                                     COLLECT_RET_AYANT_MOTIF(IND_COLLECT_RET_AYANT_MOTIF).TYPE_AYANT            :=R_RET.AYATYPE;
@@ -2961,7 +2961,7 @@ LOOP
                                 ELSE 
                                     COLLECT_RET_DOS_MOTIF(IND_COLLECT_RET_DOS_MOTIF).TRVNUM                    :=R_RET.TRVNUM;
                                   COLLECT_RET_DOS_MOTIF(IND_COLLECT_RET_DOS_MOTIF).CODEMOTIF                 :=24;
-                                  COLLECT_RET_DOS_MOTIF(IND_COLLECT_RET_DOS_MOTIF).REMARQUE                  :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N∞183/2006/DG/CNPS 09-05-2006';
+                                  COLLECT_RET_DOS_MOTIF(IND_COLLECT_RET_DOS_MOTIF).REMARQUE                  :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N¬∞183/2006/DG/CNPS 09-05-2006';
                                   COLLECT_RET_DOS_MOTIF(IND_COLLECT_RET_DOS_MOTIF).DATEMOTIF                 :=SYSDATE;                    
                                   COLLECT_RET_DOS_MOTIF(IND_COLLECT_RET_DOS_MOTIF).DATMODIF                  :=NULL;
                                  
@@ -3260,7 +3260,7 @@ LOOP
                 +COLLECT_RAPPEL_RETRAITE(V_RETROUVE_RAPPEL).RAPIPRAO    
                 -R_RET.PRETS+R_RET.BONIFICATION
                 -V_MONTANT_IMPOT_IS-V_MONTANT_IMPOT_CN-V_MONTANT_IMPOT_IGR
-                +NVL(V_MONTANT_RAPPEL_BONIFICATION,0) /*AJOUT DU MONTANT DU RAPPEL PAR GBAœ 19 12 2011*/
+                +NVL(V_MONTANT_RAPPEL_BONIFICATION,0) /*AJOUT DU MONTANT DU RAPPEL PAR GBA√è 19 12 2011*/
                 )<=0 THEN 
                                 
              COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).AGENCE                 :=R_RET.AGPAIEMENT;
@@ -3325,7 +3325,7 @@ LOOP
              
             IF (R_RET.MONTANT_NORMAL+R_RET.MONTANT_COMP+R_RET.MONTANT_IPRAO+R_RET.RETMONTRAPPEL+R_RET.BONIFICATION
                   -V_MONTANT_IMPOT_IS-V_MONTANT_IMPOT_CN-V_MONTANT_IMPOT_IGR
-                  +NVL(V_MONTANT_RAPPEL_BONIFICATION,0) /*AJOUT DU MONTANT DU RAPPEL PAR GBAœ 19 12 2011*/
+                  +NVL(V_MONTANT_RAPPEL_BONIFICATION,0) /*AJOUT DU MONTANT DU RAPPEL PAR GBA√è 19 12 2011*/
                   )<=0 THEN 
                   
              COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).AGENCE                 :=R_RET.AGPAIEMENT;
@@ -3527,7 +3527,7 @@ LOOP
                     COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_RETNUMRETRAITE                                :=0;
                     COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMICAISSE                                     :=R_RET.DRECAISSE;
                     COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIBONIFICATION                               :=R_RET.BONIFICATION;
-                    --COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION                            :=0; --PAR GBAœ 19 12 2011
+                    --COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION                            :=0; --PAR GBA√è 19 12 2011
                     
                     
                     
@@ -3605,7 +3605,7 @@ LOOP
                     --****             SEPARATION DU RAPPEL BONIFICATION ET PENSION          ****--
                     --***************************************************************************--
                                   
-                          --COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION  :=NVL(V_MONTANT_RAPPEL_BONIFICATION,0);   --PAR GBAœ 19 12 2011
+                          --COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION  :=NVL(V_MONTANT_RAPPEL_BONIFICATION,0);   --PAR GBA√è 19 12 2011
                           COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIMONTRAPSRG       :=COLLECT_RAPPEL_RETRAITE(V_RETROUVE_RAPPEL).RAPRGSP;
                                                                 
                    --*************************************************************************************************************--
@@ -3621,7 +3621,7 @@ LOOP
                     ELSE            
                      COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIMONTRAPRG                                  :=0;
                      COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIMONTRAPRC                                  :=0;
-                     --COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION  :=NVL(V_MONTANT_RAPPEL_BONIFICATION,0); --PAR GBAœ 19 12 2011
+                     --COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION  :=NVL(V_MONTANT_RAPPEL_BONIFICATION,0); --PAR GBA√è 19 12 2011
                      COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIMONTRAPSRG                                 :=0;
                      COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIMONTRAPSRC                                 :=0;                    
                      COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPMTIPRAO                                 :=0;                                           
@@ -3632,10 +3632,10 @@ LOOP
                    --***************************************************************************--                   
                    --GESTION DU POSITIONNEMENT DU RAPPEL DE BONIFICATION
                    IF NVL(V_MONTANT_RAPPEL_BONIFICATION,0)>0 THEN
-                       COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION  :=NVL(V_MONTANT_RAPPEL_BONIFICATION,0); --PAR GBAœ 19 12 2011
+                       COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION  :=NVL(V_MONTANT_RAPPEL_BONIFICATION,0); --PAR GBA√è 19 12 2011
                        --:GLOBAL.MESSAGE1:=MSGBOX('CFG_INFORMATION','COLLECT_EMISSION V_MONTANT_RAPPEL_BONIFICATION = '||TO_CHAR(V_MONTANT_RAPPEL_BONIFICATION));
                    ELSE
-                       COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION  := 0; --PAR GBAœ 19 12 2011
+                       COLLECT_EMISSION(IND_COLLECT_EMISSION).RET_EMIRAPBONIFICATION  := 0; --PAR GBA√è 19 12 2011
                    END IF;
                     
                     IND_COLLECT_EMISSION:=IND_COLLECT_EMISSION+1;
@@ -3905,7 +3905,7 @@ END IF;
     V_MAJ_PRET    :=0; 
     FOR A IN 1..((COLLECT_EMISSION.COUNT)-1)
       LOOP
-         ---AJOUTE PAR GBAœ LE 19 12 2011
+         ---AJOUTE PAR GBA√è LE 19 12 2011
          V_LAST_EMIS_BONIFIEE:= F_LAST_EMIS_BONIFIEE(COLLECT_EMISSION(A).ASSURE,COLLECT_EMISSION(A).BENEFICIAIRE,COLLECT_EMISSION(A).TYPE_BENEFICIAIRE);
         
             /*******************************************/        
@@ -4091,7 +4091,7 @@ END IF;
               LOOP
                 FETCH CUR_DATE_ARRET_BONIF INTO V_DATE_ARRET_BONIF;
                 EXIT WHEN CUR_DATE_ARRET_BONIF%NOTFOUND;
-                --:GLOBAL.MESSAGE:=MSGBOX('CFG_INFORMATION','BONIFICATION RETROUVEE!'); --TEST GBAœ 25 01 2012
+                --:GLOBAL.MESSAGE:=MSGBOX('CFG_INFORMATION','BONIFICATION RETROUVEE!'); --TEST GBA√è 25 01 2012
                   --SI LA DERNIERE EMISSION DE BONIFICATION EST INFERIEURE A F_LAST_EMIS_BONIFIEE
                   IF V_DATE_ARRET_BONIF.DERNIERE_EMISSION < COLLECT_EMISSION(A).PERIODE_EMISE  THEN
                                                 
@@ -4159,7 +4159,7 @@ END IF;
 --METTRE A JOUR LES IMPOTS PRELEVES
 
                 FOR I IN 1..(COLLECT_IMPOT.COUNT)-1 LOOP
-                    --AJOUTER LE 14 06 2012 PAR GBAœ POUR NE PAS TENIR COMPTE DES PENSIONS NON EMISES
+                    --AJOUTER LE 14 06 2012 PAR GBA√è POUR NE PAS TENIR COMPTE DES PENSIONS NON EMISES
                     INSERT INTO IMPOT_2(IMPTRVNUM,IMPBENEFICIAIRE,IMPTYPEBENEF,IMPCODE,IMPBASEIMPOSABLE,IMPPARTS,IMPMONTANT,IMPCUMUL,IMPMOISREFERENCE
                                                      ,IMPPERIODEMISSION,IMPDATESAIS,IMPDATEMODIF,DATEMIS,IMPNBJFP,IMPCUMNBJFP,IMPCUMBASEIMPOSABLE,IMPMONTANTAN ,IMPBASEIMPOSABLE_AN )                     
                     SELECT DISTINCT COLLECT_IMPOT(I).IMPTRVNUM ,COLLECT_IMPOT(I).IMPBENEFICIAIRE ,COLLECT_IMPOT(I).IMPTYPEBENEF
@@ -4837,7 +4837,7 @@ IF R_REN.SOLDE_PERIODE=0 THEN
                          COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).BENEFICIAIRE            :=R_REN.BENEFICIAIRE;
                          COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).TYPE_BENEFICIAIRE    :=R_REN.AYATYPE;
                          COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).PERIODE_EMISSION    :=P_PERIODE;
-                         COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).REMARQUE          :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N∞183/2006/DG/CNPS 09-05-2006';
+                         COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).REMARQUE          :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N¬∞183/2006/DG/CNPS 09-05-2006';
                    COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).STATUT            :=NULL;
                    COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).PRESTATION        :='RENTE';
                          COLLECT_REJET_EMISSION(IND_COLLECT_REJET_EMISSION).SUPPLEMENT_1            :=NULL;
@@ -4853,7 +4853,7 @@ IF R_REN.SOLDE_PERIODE=0 THEN
                     IF R_REN.AYATYPE!='T' THEN 
                       COLLECT_REN_AYANT_MOTIF(IND_COLLECT_REN_AYANT_MOTIF).AYANT_DROIT     :=R_REN.AYANT_DROIT;             
                                    COLLECT_REN_AYANT_MOTIF(IND_COLLECT_REN_AYANT_MOTIF).CODEMOTIF      :=24;             
-                                   COLLECT_REN_AYANT_MOTIF(IND_COLLECT_REN_AYANT_MOTIF).REMARQUE       :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N∞183/2006/DG/CNPS 09-05-2006';
+                                   COLLECT_REN_AYANT_MOTIF(IND_COLLECT_REN_AYANT_MOTIF).REMARQUE       :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N¬∞183/2006/DG/CNPS 09-05-2006';
                                    COLLECT_REN_AYANT_MOTIF(IND_COLLECT_REN_AYANT_MOTIF).DATEMOTIF         :=SYSDATE;
                                  
                                      IND_COLLECT_REN_AYANT_MOTIF:=IND_COLLECT_REN_AYANT_MOTIF+1;
@@ -4862,7 +4862,7 @@ IF R_REN.SOLDE_PERIODE=0 THEN
                     ELSE               
                         COLLECT_RENTE_MOTIF(IND_COLLECT_RENTE_MOTIF).TRVNUM                                 :=R_REN.TRVNUM;                
                                     COLLECT_RENTE_MOTIF(IND_COLLECT_RENTE_MOTIF).CODEMOTIF                            :=24;               
-                                    COLLECT_RENTE_MOTIF(IND_COLLECT_RENTE_MOTIF).REMARQUE                             :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N∞183/2006/DG/CNPS 09-05-2006';
+                                    COLLECT_RENTE_MOTIF(IND_COLLECT_RENTE_MOTIF).REMARQUE                             :='EMISSION DU '||TO_CHAR(P_PERIODE,'DD/MM/YYYY')||'.  CET(TE) ASSURE(E) A DES EMISSIONS NON PAYEES.-NOTE DE SERVICE N¬∞183/2006/DG/CNPS 09-05-2006';
                                     COLLECT_RENTE_MOTIF(IND_COLLECT_RENTE_MOTIF).DATEMOTIF                            :=SYSDATE;                     
                                     COLLECT_RENTE_MOTIF(IND_COLLECT_RENTE_MOTIF).DATSINISTRE                          :=R_REN.DATSINISTRE;                 
                                     COLLECT_RENTE_MOTIF(IND_COLLECT_RENTE_MOTIF).SREGCODE                                :=R_REN.SREGCODE;            
@@ -4884,7 +4884,7 @@ IF R_REN.SOLDE_PERIODE=0 THEN
         --===========================================================================================
          --controle des dates d'echeance des nouveaux dossiers afin de savoir 
          --si leurs emissions est possibles ou non pour la periode d'emission 
-         --passÈe en parametre    
+         --pass√©e en parametre    
          
          IF R_REN.CODEDROIT IS NULL THEN  
                 
@@ -5147,7 +5147,7 @@ IF R_REN.SOLDE_PERIODE=0 THEN
                         V_PEUT_ETRE_EMIS:=1;
                         V_PEUT_ETRE_RAPPELER:=1;
                         --
-                        --  DEPLACER DANS LE BLOC DES BENEFICIARES A EMETTRE (IF V_PEUT_ETRE_EMIS=0 THEN)-- ModifiÈ le 29/04/2009
+                        --  DEPLACER DANS LE BLOC DES BENEFICIARES A EMETTRE (IF V_PEUT_ETRE_EMIS=0 THEN)-- Modifi√© le 29/04/2009
                         --                 
                         --  ELSE 
                         --    COLLECT_RAPPEL_RENTE(V_RETOUVE_RAPPEL).RAPDATEMIS:=SYSDATE;            
@@ -5331,8 +5331,8 @@ IF R_REN.SOLDE_PERIODE=0 THEN
                     COLLECT_EMISSION(IND_COLLECT_EMISSION).REN_EMIRAPMAJORAT2                                :=COLLECT_RAPPEL_RENTE(V_RETOUVE_RAPPEL).RAPMTMAJORAT2;
                     COLLECT_EMISSION(IND_COLLECT_EMISSION).REN_EMIRAPMAJORAT3                                :=COLLECT_RAPPEL_RENTE(V_RETOUVE_RAPPEL).RAPMTMAJORAT3;
                     --- MISE A JOUR DE LA COLLECTION DES RAPPELS  --- 
-                    --- AjoutÈ le 29/04/2009 pour empÈcher que les rappels soient mis ‡ jour sans que l'assurÈ ait ÈtÈ 
-                    --- Èmis pour la pÈriode.
+                    --- Ajout√© le 29/04/2009 pour emp√©cher que les rappels soient mis √† jour sans que l'assur√© ait √©t√© 
+                    --- √©mis pour la p√©riode.
                         COLLECT_RAPPEL_RENTE(V_RETOUVE_RAPPEL).RAPDATEMIS:=SYSDATE;
                         
                    --AJOUT DANS LA COLLECTION COLLECT_EMISSION SANS LE RAPPEL;
@@ -6459,4 +6459,46 @@ END;
 
 
 
+
+/*
+PERMET L'EMISSION DES RENTES
+*/                            
+PROCEDURE EMETTRE_RENTE(P_PERIODE DATE,P_PLAGE_1  NUMBER,P_PLAGE_2  NUMBER,P_SINISTRE  NUMBER
+                        ,P_TYPEBEN  CHAR,P_AG1   AGENCE.AGCODE%TYPE,P_AG2   AGENCE.AGCODE%TYPE
+                        ,P_AG3  AGENCE.AGCODE%TYPE,P_AG4 AGENCE.AGCODE%TYPE,P_AG5  AGENCE.AGCODE%TYPE
+                        ,P_AG6  AGENCE.AGCODE%TYPE,P_AG7 AGENCE.AGCODE%TYPE,P_AG8  AGENCE.AGCODE%TYPE
+                        ,P_AG9  AGENCE.AGCODE%TYPE,P_AG11 AGENCE.AGCODE%TYPE,P_AG12 AGENCE.AGCODE%TYPE
+                        ,P_AG13  AGENCE.AGCODE%TYPE,P_AG14  AGENCE.AGCODE%TYPE,P_AG15 AGENCE.AGCODE%TYPE
+                        ,P_AG16   AGENCE.AGCODE%TYPE,P_AG17 AGENCE.AGCODE%TYPE,P_AG18 AGENCE.AGCODE%TYPE
+                        ,P_AG19  AGENCE.AGCODE%TYPE,P_AG20  AGENCE.AGCODE%TYPE,P_AG21 AGENCE.AGCODE%TYPE
+                        ,P_AG22  AGENCE.AGCODE%TYPE,P_AG23 AGENCE.AGCODE%TYPE,P_AG24 AGENCE.AGCODE%TYPE
+                        ,P_AG25  AGENCE.AGCODE%TYPE,P_AG10 AGENCE.AGCODE%TYPE
+                        ,P_AG50  AGENCE.AGCODE%TYPE,P_AG26 AGENCE.AGCODE%TYPE);                            
+--EMETTRE_RETRAITE
+
+--PROCEDURE EMETTRE_RENTE        
+
+PROCEDURE PROC_EMISSION_BATCH_DR2(P_PERIODE DATE,P_REGIME NUMBER);
+
+PROCEDURE PROC_EMISSION_BATCH_DR2A(P_PERIODE DATE,P_REGIME NUMBER);
+
+PROCEDURE PROC_EMISSION_BATCH_DR2B(P_PERIODE DATE,P_REGIME NUMBER);
+
+PROCEDURE PROC_EMISSION_BATCH_DR3(P_PERIODE DATE,P_REGIME NUMBER);
+
+PROCEDURE PROC_EMISSION_BATCH_DR3A(P_PERIODE DATE,P_REGIME NUMBER);
+
+PROCEDURE PROC_EMISSION_BATCH_DR3B(P_PERIODE DATE,P_REGIME NUMBER);
+
+PROCEDURE PROC_EMISSION_BATCH_DR456(P_PERIODE DATE,P_REGIME NUMBER);
+
+PROCEDURE PROC_EMISSION_BATCH_DR4(P_PERIODE DATE,P_REGIME NUMBER);
+PROCEDURE PROC_EMISSION_BATCH_DR56(P_PERIODE DATE,P_REGIME NUMBER);
+
+--PROCEDURE PROC_EMISSION_BATCH_AG7_25(P_PERIODE DATE,P_REGIME NUMBER);
+--PROCEDURE PROC_EMISSION_BATCH_AG6(P_PERIODE DATE,P_REGIME NUMBER);
+--PROCEDURE PROC_EMISSION_BATCH_AG8_9(P_PERIODE DATE,P_REGIME NUMBER);
+
+PROCEDURE PROC_EMISSION_BATCH_EXT(P_PERIODE DATE,P_REGIME NUMBER);                                                                  
+                                               
 END PACK_AUTOMATISATION_EMISSION_2;
